@@ -1,0 +1,29 @@
+.divisor{
+    height: 10px;
+    width: 100px;
+    border: 5px solid rgba(0, 0, 0, 0.8);
+}
+.scoreboard{
+    background: linear-gradient(135deg, #413e3e, #4F4F4F, #A0A0A0, #413e3e) !important;
+    border: 5px solid rgb(95, 94, 94);
+}
+.numberScoreboard{
+    background: linear-gradient(to bottom, #1a1919, #393737);
+    transform-style: preserve-3d;
+    transition: transform 1s ease;
+    width: 130px;
+    border: 5px dashed black;
+    box-shadow: 10px 10px 10px rgb(63, 60, 60);
+
+}
+.btn-secondary {
+    background: linear-gradient(135deg, #1f1e1e, #302d2d, #272626, #5d5a5a) !important;
+    box-shadow: 10px 10px 10px rgb(63, 60, 60);
+
+}
+.opponent h2, .player h2{
+    border: 5px solid #1f1e1e;
+    box-shadow: 10px 10px 10px rgb(63, 60, 60);
+    background-color: #292626;
+    border-radius: 20px;
+}

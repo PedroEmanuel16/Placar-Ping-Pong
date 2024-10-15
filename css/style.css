@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
+
+*{
+    font-family: var(--font-family);
+}
+main{
+    height: calc(100vh - 108px);
+}
+.ts-control{
+    border: none !important;
+}
+#opponent-ts-control{
+    font-size: 20px !important;
+}
