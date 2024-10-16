@@ -19,5 +19,13 @@ btnRecomecar.addEventListener('click', function(){
 
     localStorage.setItem('currentMatch', currentMatch);
 
+    if(localStorage.getItem('matches') !== null){
+        let matchesPrevious = localStorage.getItem('matches');
+
+        localStorage.setItem('matches', matchesPrevious + "." + currentMatch);
+    } else {
+        localStorage.setItem('matches', currentMatch);
+    }
+    
     window.location.replace('index.html');
 });

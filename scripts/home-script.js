@@ -6,6 +6,15 @@ let formInit = document.querySelector('#iniciarForm');
 let adversarios = localStorage.getItem('opponents');
 let btnIniciar = document.querySelector('#btnIniciar');
 
+if(localStorage.getItem('addedOpponent')){
+    Swal.fire({
+        icon: "success",
+        title: "Adversário cadastrado com sucesso",
+    });
+
+    localStorage.removeItem('addedOpponent');
+}
+
 btnIniciar.addEventListener('click', function(){
     if(!adversarios){
         Swal.fire({
@@ -56,4 +65,5 @@ formAdd.addEventListener('submit', (e) => {
     }
 
     window.location.reload();
+    localStorage.setItem('addedOpponent', 'true');
 })

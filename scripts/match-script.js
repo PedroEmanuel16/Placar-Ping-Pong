@@ -47,9 +47,13 @@ btnMarkPointPlayer.addEventListener('click', function () {
         dataMatch[2] = 'win';
 
         matches = matches.split('.');
-        matches[matches.length - 1] = dataMatch;
-        matches = matches.join('.');
-
+        if(matches.length == 1){
+            matches[0] = dataMatch;
+        } else{
+            matches[matches.length - 1] = dataMatch;
+            matches = matches.join('.');    
+        }
+        
         localStorage.setItem('matches', matches);
         localStorage.removeItem('currentMatch');
 
@@ -83,7 +87,13 @@ btnMarkPointOpponent.addEventListener('click', function () {
         dataMatch[2] = 'lose';
 
         matches = matches.split('.');
-        matches[matches.length - 1] = dataMatch;
+        if(matches.length == 1){
+            matches[0] = dataMatch;
+        } else{
+            matches[matches.length - 1] = dataMatch;
+            matches = matches.join('.');    
+        }
+
         localStorage.setItem('matches', matches);
         localStorage.removeItem('currentMatch');
 
