@@ -5,6 +5,7 @@ btnSair('../../index.html');
 let formInit = document.querySelector('#iniciarForm');
 let adversarios = localStorage.getItem('opponents');
 let btnIniciar = document.querySelector('#btnIniciar');
+let btnEstatisticas = document.querySelector('#btnEstatisticas');
 
 if(localStorage.getItem('addedOpponent')){
     Swal.fire({
@@ -14,6 +15,10 @@ if(localStorage.getItem('addedOpponent')){
 
     localStorage.removeItem('addedOpponent');
 }
+
+btnEstatisticas.addEventListener('click', function(){
+    window.location.href = '/Pages/Statistics/index.html';
+});
 
 btnIniciar.addEventListener('click', function(){
     if(!adversarios){
