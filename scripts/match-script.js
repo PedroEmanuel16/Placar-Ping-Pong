@@ -46,14 +46,16 @@ btnMarkPointPlayer.addEventListener('click', function () {
     if ((dataMatch[3] >= dataMatch[1] && dataMatch[3] - 1 != dataMatch[4] && dataMatch[4] - 1 != dataMatch[3] && dataMatch[3] != dataMatch[4]) || (dataMatch[4] >= dataMatch[1] && dataMatch[4] - 1 != dataMatch[3] && dataMatch[3] - 1 != dataMatch[4] && dataMatch[3] != dataMatch[4])) {
         dataMatch[2] = 'win';
 
-        matches = matches.split('.');
-        if(matches.length == 1){
-            matches[0] = dataMatch;
-        } else{
-            matches[matches.length - 1] = dataMatch;
-            matches = matches.join('.');    
+        if (matches) {
+            matches = matches.split('.');
+
+                matches[matches.length] = dataMatch;
+                matches = matches.join('.');    
+
+        } else {
+            matches = dataMatch;
         }
-        
+
         localStorage.setItem('matches', matches);
         localStorage.removeItem('currentMatch');
 
@@ -86,12 +88,16 @@ btnMarkPointOpponent.addEventListener('click', function () {
     if ((dataMatch[3] >= dataMatch[1] && dataMatch[3] - 1 != dataMatch[4] && dataMatch[4] - 1 != dataMatch[3] && dataMatch[3] != dataMatch[4]) || (dataMatch[4] >= dataMatch[1] && dataMatch[4] - 1 != dataMatch[3] && dataMatch[3] - 1 != dataMatch[4] && dataMatch[3] != dataMatch[4])) {
         dataMatch[2] = 'lose';
 
-        matches = matches.split('.');
-        if(matches.length == 1){
-            matches[0] = dataMatch;
-        } else{
-            matches[matches.length - 1] = dataMatch;
-            matches = matches.join('.');    
+        if (matches) {
+            matches = matches.split('.');
+
+
+                matches[matches.length] = dataMatch;
+                matches = matches.join('.');    
+
+
+        } else {
+            matches = dataMatch;
         }
 
         localStorage.setItem('matches', matches);

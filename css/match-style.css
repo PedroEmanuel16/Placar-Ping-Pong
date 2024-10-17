@@ -27,3 +27,8 @@
     background-color: #292626;
     border-radius: 20px;
 }
+@media (max-width: 800px){
+    .estilizacao-geral{
+        font-size: 40px !important;
+    }
+}

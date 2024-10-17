@@ -27,7 +27,7 @@
 
 <body class="bg-dark">
     <div class="container vh-100">
-        <header class="py-1 d-flex justify-content-center align-items-center position-relative">
+        <header class="py-1 d-flex justify-content-start justify-content-md-center align-items-center position-relative">
 
             <h1 class="text-light">Placar Ping Pong</h1>
             <img src="/imgs/ping-pong-logo.png" alt="Logo Ping Pong" class="img-fluid" style="height: 100px;">
@@ -44,9 +44,9 @@
             </div>
             <div class="scoreboard d-flex justify-content-center align-items-center bg-secondary rounded-5 p-3 gap-3">
             <div class="opponent d-flex flex-column align-items-center gap-1">
-                <h2 class="fst-italic p-3" style="font-size: 60px;" id="player"></h2>
+                <h2 class="fst-italic p-3 estilizacao-geral" style="font-size: 60px;" id="player"></h2>
                 <div id="pointsPlayer" class="numberScoreboard py-5 rounded-4">
-                    <h3 style="font-size: 60px;" id="pointsPlayerNumber">0</h3>
+                    <h3 style="font-size: 60px;" id="pointsPlayerNumber" class="estilizacao-geral">0</h3>
                 </div>
                 <button class="btn btn-secondary btn-lg fs-3 mt-2" id="markPointPlayer">Marcar Ponto</button>
             </div>
@@ -54,9 +54,9 @@
             <div class="divisor"></div>
 
             <div class="player d-flex flex-column align-items-center gap-1">
-                <h2 class="fst-italic p-3" style="font-size: 60px;" id="opponent"></h2>
+                <h2 class="fst-italic p-3 estilizacao-geral" style="font-size: 60px;" id="opponent"></h2>
                 <div id="pointsOpponent" class="numberScoreboard py-5 rounded-4">
-                    <h3 style="font-size: 60px;" id="pointsOpponentNumber">0</h3>
+                    <h3 style="font-size: 60px;" class="estilizacao-geral" id="pointsOpponentNumber">0</h3>
                 </div>
                 <button class="btn btn-secondary btn-lg fs-3 mt-2" id="markPointOpponent">Marcar Ponto</button>
             </div>

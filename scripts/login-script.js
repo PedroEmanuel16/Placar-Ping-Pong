@@ -1,7 +1,7 @@
 let form = document.querySelector('#loginForm');
 
 if(localStorage.getItem('authenticate') == 'true'){
-    window.location.replace('Pages/Home/index');
+    window.location.replace('Pages/Home/index.html');
 }
 
 form.addEventListener('submit', (e) => {
