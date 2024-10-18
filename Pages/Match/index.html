@@ -38,8 +38,8 @@
         </header>
 
         <main
-            class="points text-center text-light d-flex justify-content-center align-items-center mx-auto gap-5 position-relative">
-            <div class="scoreboard-name position-absolute top-0 mt-3">
+            class="points text-center text-light d-flex justify-content-center align-items-center mx-auto position-relative">
+            <div class="scoreboard-name position-absolute top-0">
                 <h1 style="font-size: 70px;">Placar</h1>
             </div>
             <div class="scoreboard d-flex justify-content-center align-items-center bg-secondary rounded-5 p-3 gap-3">
@@ -48,7 +48,7 @@
                 <div id="pointsPlayer" class="numberScoreboard py-5 rounded-4">
                     <h3 style="font-size: 60px;" id="pointsPlayerNumber" class="estilizacao-geral">0</h3>
                 </div>
-                <button class="btn btn-secondary btn-lg fs-3 mt-2" id="markPointPlayer">Marcar Ponto</button>
+                <button class="btn btn-secondary fs-3 mt-2" id="markPointPlayer">Marcar Ponto</button>
             </div>
 
             <div class="divisor"></div>
@@ -58,17 +58,15 @@
                 <div id="pointsOpponent" class="numberScoreboard py-5 rounded-4">
                     <h3 style="font-size: 60px;" class="estilizacao-geral" id="pointsOpponentNumber">0</h3>
                 </div>
-                <button class="btn btn-secondary btn-lg fs-3 mt-2" id="markPointOpponent">Marcar Ponto</button>
+                <button class="btn btn-secondary fs-3 mt-2" id="markPointOpponent">Marcar Ponto</button>
             </div>
         </div>
-            <div class="cancel position-absolute bottom-0 mb-3">
+            <div class="cancel position-absolute bottom-0">
                 <button class="btn btn-danger btn-lg fs-3" id="cancelMatch">Cancelar Partida</button>
             </div>
         </main>
     </div>
     <!-- <script>localStorage.clear()</script> -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-xx"
-        crossorigin="anonymous"></script>
 
 </body>
 

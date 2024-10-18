@@ -11,7 +11,7 @@
     background: linear-gradient(to bottom, #1a1919, #393737);
     transform-style: preserve-3d;
     transition: transform 1s ease;
-    width: 130px;
+    width: 115px;
     border: 5px dashed black;
     box-shadow: 10px 10px 10px rgb(63, 60, 60);
 
@@ -31,4 +31,8 @@
     .estilizacao-geral{
         font-size: 40px !important;
     }
+     .btn-secondary{
+        font-size: 17px !important;
+    }
+
 }
