@@ -27,14 +27,6 @@ pointsOpponentNumber.textContent = dataMatch[4];
 
 btnCancel.addEventListener('click', function () {
     localStorage.removeItem('currentMatch');
-    let matches = localStorage.getItem('matches');
-    let matchesArray = matches.split('.');
-    if (matchesArray.length == 1) {
-        localStorage.removeItem('matches');
-    } else {
-        matches = matchesArray.pop();
-        localStorage.setItem('matches', matches);
-    }
 
     window.location.replace('../Home/index.html');
 });
