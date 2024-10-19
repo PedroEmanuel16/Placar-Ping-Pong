@@ -17,7 +17,7 @@ if(localStorage.getItem('addedOpponent')){
 }
 
 btnEstatisticas.addEventListener('click', function(){
-    window.location.href = '/Pages/Statistics/index.html';
+    window.location.href = 'Pages/Statistics/index.html';
 });
 
 btnIniciar.addEventListener('click', function(){
