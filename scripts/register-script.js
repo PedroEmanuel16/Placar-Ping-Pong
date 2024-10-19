@@ -20,5 +20,5 @@ form.addEventListener('submit', (e) => {
 
     login((userName).charAt(0).toUpperCase() + (userName).slice(1))
 
-    window.location.replace('Pages/Home/index.html');
+    window.location.replace('../Home/index.html');
 })
