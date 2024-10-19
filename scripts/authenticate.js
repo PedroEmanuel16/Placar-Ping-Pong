@@ -1,5 +1,3 @@
-console.log('Quer o que aqui curioso?');
-
 function login(user){
     localStorage.setItem('authenticate', 'true');
     localStorage.setItem('currentUser', user);
