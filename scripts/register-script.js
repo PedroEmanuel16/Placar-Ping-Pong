@@ -1,5 +1,9 @@
 let form = document.querySelector('#registerForm');
 
+if(localStorage.getItem('authenticate') == 'true'){
+    window.location.replace('../Home/index.html');
+}
+
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     localStorage.removeItem('opponents');
