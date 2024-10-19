@@ -22,9 +22,6 @@ btnVoltar.addEventListener('click', function () {
     window.location.replace('../Home/index.html');
 })
 
-function filtrar() {
-
-}
 
 if (opponents) {
     opponents = opponents.split(',');

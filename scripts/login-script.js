@@ -14,7 +14,7 @@ form.addEventListener('submit', (e) => {
     if((userName).toLowerCase() + "," + (userPassword).toLowerCase() == localStorage.getItem('dataUser')){
         login((userName).charAt(0).toUpperCase() + (userName).slice(1));
 
-        window.location.replace('/Pages/Home/index.html');
+        window.location.replace('Pages/Home/index.html');
     } else{
         Swal.fire({
             icon: "error",
