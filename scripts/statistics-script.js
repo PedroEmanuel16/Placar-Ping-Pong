@@ -19,7 +19,7 @@ let matchesLose = 0;
 let percentualVitorias = 0;
 
 btnVoltar.addEventListener('click', function () {
-    window.history.back();
+    window.location.replace('../Home/index.html');
 })
 
 function filtrar() {
