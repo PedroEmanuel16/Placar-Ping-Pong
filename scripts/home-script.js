@@ -16,6 +16,15 @@ if(localStorage.getItem('addedOpponent')){
     localStorage.removeItem('addedOpponent');
 }
 
+if(localStorage.getItem('partyCanceled')){
+    Swal.fire({
+        icon: "success",
+        title: "Partida cancelada com sucesso",
+    });
+
+    localStorage.removeItem('partyCanceled');
+}
+
 btnEstatisticas.addEventListener('click', function(){
     window.location.replace('../Statistics/index.html');
 });

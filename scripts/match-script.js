@@ -27,6 +27,7 @@ pointsOpponentNumber.textContent = dataMatch[4];
 
 btnCancel.addEventListener('click', function () {
     localStorage.removeItem('currentMatch');
+    localStorage.setItem('partyCanceled', 'true');
 
     window.location.replace('../Home/index.html');
 });
