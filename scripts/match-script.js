@@ -50,6 +50,7 @@ btnMarkPointPlayer.addEventListener('click', function () {
         }
 
         localStorage.setItem('matches', matches);
+        localStorage.setItem('statusMatch', 'win');
         localStorage.removeItem('currentMatch');
 
         window.location.replace('finished.html');
@@ -94,6 +95,7 @@ btnMarkPointOpponent.addEventListener('click', function () {
         }
 
         localStorage.setItem('matches', matches);
+        localStorage.setItem('statusMatch', 'lose');
         localStorage.removeItem('currentMatch');
 
         window.location.replace('finished.html')
