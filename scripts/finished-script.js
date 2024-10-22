@@ -2,6 +2,15 @@ verifyLogin('../../index.html');
 
 btnSair('../../index.html');
 
+let audioWin = documento.querySelector('.audioWin');
+let audioLose = documento.querySelector('.audioLose');
+
+if(localStorage.getItem('statusMatch') == 'true'){
+    audioWin.play();
+} else {
+    audioLose.play();
+}
+
 let btnTelaInicial = document.querySelector('#btnTelaInicial');
 let btnRecomecar = document.querySelector('#btnRecomecar')
 
