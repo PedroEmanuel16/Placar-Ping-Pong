@@ -2,13 +2,17 @@ verifyLogin('../../index.html');
 
 btnSair('../../index.html');
 
-let audioWin = documento.querySelector('.audioWin');
-let audioLose = documento.querySelector('.audioLose');
+let audioWin = document.querySelector('.audioWin');
+let audioLose = document.querySelector('.audioLose');
 
-if(localStorage.getItem('statusMatch') == 'true'){
+console.log(localStorage.getItem('statusMatch'))
+
+if(localStorage.getItem('statusMatch') == 'win'){
     audioWin.play();
+    localStorage.removeItem('statusMatch');
 } else {
     audioLose.play();
+    localStorage.removeItem('statusMatch');
 }
 
 let btnTelaInicial = document.querySelector('#btnTelaInicial');
