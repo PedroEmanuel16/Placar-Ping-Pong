@@ -56,9 +56,9 @@ formAdd.addEventListener('submit', (e) => {
     if(localStorage.getItem('opponents') !== null){
         let opponentsPrevious = localStorage.getItem('opponents');
 
-        localStorage.setItem('opponents', opponentsPrevious + "," + opponent.value);
+        localStorage.setItem('opponents', opponentsPrevious + "," + (opponent.value).trim());
     } else {
-        localStorage.setItem('opponents', opponent.value);
+        localStorage.setItem('opponents', (opponent.value).trim());
     }
 
     window.location.reload();
