@@ -11,6 +11,7 @@ let pointsPlayerNumber = document.querySelector('#pointsPlayerNumber');
 let pointsOpponentNumber = document.querySelector('#pointsOpponentNumber');
 let player = document.querySelector('#player');
 let opponent = document.querySelector('#opponent');
+let audioPoint = document.querySelector('.audioPoint');
 let matches = localStorage.getItem('matches');
 let flipedPlayer = false;
 let flipedOpponent = false;
@@ -33,6 +34,7 @@ btnCancel.addEventListener('click', function () {
 });
 
 btnMarkPointPlayer.addEventListener('click', function () {
+    audioPoint.play();
     dataMatch[3] = Number(dataMatch[3]) + 1;
     localStorage.setItem('currentMatch', dataMatch);
 
@@ -76,6 +78,7 @@ btnMarkPointPlayer.addEventListener('click', function () {
 })
 
 btnMarkPointOpponent.addEventListener('click', function () {
+    audioPoint.play();
     dataMatch[4] = Number(dataMatch[4]) + 1;
     localStorage.setItem('currentMatch', dataMatch);
 
