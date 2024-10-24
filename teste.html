@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let textoFala = '';
+        let speech;
+
+        function init() {
+            window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            speech = new SpeechRecognition();
+            speech.interimResults = false; // Mude para false para evitar resultados intermediários
+            speech.lang = 'pt-BR';
+
+            speech.addEventListener('result', e => {
+                const transcript = Array.from(e.results)
+                    .map(result => result[0])
+                    .map(result => result.transcript)
+                    .join('');
+
+                if (e.results[e.resultIndex].isFinal) { // Verifica se o resultado é final
+                    if((transcript.includes('voltar ponto'))){
+                        alert('ponto voltado');
+                        textoFala = ''
+                    }
+
+                    textoFala += transcript + ', ';
+                }
+            });
+
+            speech.addEventListener('end', init); // Reinicia o reconhecimento quando ele termina
+            speech.start();
+        }
+
+        init()
+
+        setInterval(() => {
+            console.log(textoFala)
+        }, 3000);
+    </script>
+</body>
+
+</html>

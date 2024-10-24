@@ -14,6 +14,7 @@ let opponent = document.querySelector('#opponent');
 let audioPoint = document.querySelector('.audioPoint');
 let btnVoltar = document.querySelector('#btnVoltar');
 let matches = localStorage.getItem('matches');
+let textoFala = '';
 let flipedPlayer = false;
 let flipedOpponent = false;
 
@@ -22,8 +23,14 @@ dataMatch = dataMatch.split(',');
 
 setInterval(() => {
     let lastPoint = localStorage.getItem('lastPoint');
+    dataMatch1 = localStorage.getItem('currentMatch')
 
     if(lastPoint != null){
+        if(lastPoint == 'player' && (Number(dataMatch[3]) <= 0 )){
+            btnVoltar.disabled = false;
+        } else if (lastPoint == 'opponent' && (Number(dataMatch[4]) <= 0)){
+            btnVoltar.disabled = false;
+        }
         btnVoltar.disabled = false;
     }
 }, 1000);
@@ -35,15 +42,7 @@ opponent.textContent = dataMatch[0];
 pointsPlayerNumber.textContent = dataMatch[3];
 pointsOpponentNumber.textContent = dataMatch[4];
 
-btnCancel.addEventListener('click', function () {
-    localStorage.removeItem('currentMatch');
-    localStorage.removeItem('lastPoint');
-    localStorage.setItem('partyCanceled', 'true');
-
-    window.location.replace('../Home/index.html');
-});
-
-btnVoltar.addEventListener('click', function(){
+function voltarPonto(){
     let lastPoint = localStorage.getItem('lastPoint');
 
     if (lastPoint == 'player'){
@@ -86,7 +85,46 @@ btnVoltar.addEventListener('click', function(){
 
         flipedOpponent = !flipedOpponent;
     }
-})
+}
+
+function init() {
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    speech = new SpeechRecognition();
+    speech.interimResults = false; // Mude para false para evitar resultados intermediários
+    speech.lang = 'pt-BR';
+
+    speech.addEventListener('result', e => {
+        const transcript = Array.from(e.results)
+            .map(result => result[0])
+            .map(result => result.transcript)
+            .join('');
+
+        if (e.results[e.resultIndex].isFinal) { // Verifica se o resultado é final
+            if((transcript.includes('voltar ponto'))){
+                voltarPonto();
+                textoFala = ''
+            }
+
+            textoFala += transcript + ', ';
+        }
+    });
+
+    speech.addEventListener('end', init); // Reinicia o reconhecimento quando ele termina
+    speech.start();
+}
+
+init();
+
+btnCancel.addEventListener('click', function () {
+    localStorage.removeItem('currentMatch');
+    localStorage.removeItem('lastPoint');
+    localStorage.setItem('partyCanceled', 'true');
+
+    window.location.replace('../Home/index.html');
+});
+
+btnVoltar.addEventListener('click', voltarPonto)
 
 btnMarkPointPlayer.addEventListener('click', function () {
     localStorage.setItem('lastPoint', 'player');
