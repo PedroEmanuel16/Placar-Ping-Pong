@@ -26,9 +26,9 @@ setInterval(() => {
     dataMatch1 = localStorage.getItem('currentMatch')
 
     if(lastPoint != null){
-        if(lastPoint == 'player' && (Number(dataMatch[3]) <= 0 )){
+        if(lastPoint == 'player' && (Number(dataMatch1[3]) <= 0 )){
             btnVoltar.disabled = false;
-        } else if (lastPoint == 'opponent' && (Number(dataMatch[4]) <= 0)){
+        } else if (lastPoint == 'opponent' && (Number(dataMatch1[4]) <= 0)){
             btnVoltar.disabled = false;
         }
         btnVoltar.disabled = false;
@@ -101,9 +101,9 @@ function init() {
             .join('');
 
         if (e.results[e.resultIndex].isFinal) { // Verifica se o resultado é final
-            if((transcript.includes('voltar ponto'))){
+            if((transcript.includes('voltar ponto') || transcript.includes('voltar.'))){
                 voltarPonto();
-                textoFala = ''
+                textoFala = '';
             }
 
             textoFala += transcript + ', ';
