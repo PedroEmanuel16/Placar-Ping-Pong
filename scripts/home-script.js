@@ -6,6 +6,7 @@ let formInit = document.querySelector('#iniciarForm');
 let adversarios = localStorage.getItem('opponents');
 let btnIniciar = document.querySelector('#btnIniciar');
 let btnEstatisticas = document.querySelector('#btnEstatisticas');
+let textoFala = '';
 
 if(localStorage.getItem('addedOpponent')){
     Swal.fire({
@@ -24,6 +25,40 @@ if(localStorage.getItem('partyCanceled')){
 
     localStorage.removeItem('partyCanceled');
 }
+
+function init() {
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    speech = new SpeechRecognition();
+    speech.interimResults = false; // Mude para false para evitar resultados intermediários
+    speech.lang = 'pt-BR';
+
+    speech.addEventListener('result', e => {
+        const transcript = Array.from(e.results)
+            .map(result => result[0])
+            .map(result => result.transcript)
+            .join('');
+
+        if (e.results[e.resultIndex].isFinal) { // Verifica se o resultado é final
+            opponents = adversarios.split(',');
+
+            opponents.forEach(opponent => {
+                if((transcript.includes('iniciar com ' + opponent) || transcript.includes('iniciar partida com ' + opponent))){
+                    alert('aeeeeeeeee');
+                    textoFala = '';
+                }
+            });
+
+            textoFala += transcript + ', ';
+        }
+    });
+    
+
+    speech.addEventListener('end', init); // Reinicia o reconhecimento quando ele termina
+    speech.start();
+}
+
+init();
 
 btnEstatisticas.addEventListener('click', function(){
     window.location.replace('../Statistics/index.html');

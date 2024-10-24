@@ -12,6 +12,7 @@ let pointsOpponentNumber = document.querySelector('#pointsOpponentNumber');
 let player = document.querySelector('#player');
 let opponent = document.querySelector('#opponent');
 let audioPoint = document.querySelector('.audioPoint');
+let audioBack = document.querySelector('.audioBack');
 let btnVoltar = document.querySelector('#btnVoltar');
 let matches = localStorage.getItem('matches');
 let textoFala = '';
@@ -46,6 +47,7 @@ function voltarPonto(){
     let lastPoint = localStorage.getItem('lastPoint');
 
     if (lastPoint == 'player'){
+        audioBack.play();
         dataMatch[3] = dataMatch[3] - 1;
         localStorage.setItem('currentMatch', dataMatch);
 
@@ -65,6 +67,7 @@ function voltarPonto(){
         }
         flipedPlayer = !flipedPlayer;
     } else {
+        audioBack.play();
         dataMatch[4] = dataMatch[4] - 1;
         localStorage.setItem('currentMatch', dataMatch);
 
@@ -83,8 +86,111 @@ function voltarPonto(){
             }, 300)
         }
 
+    flipedOpponent = !flipedOpponent;
+
+    }
+}
+
+function cancelarPartida(){
+    localStorage.removeItem('currentMatch');
+    localStorage.removeItem('lastPoint');
+    localStorage.setItem('partyCanceled', 'true');
+
+    window.location.replace('../Home/index.html');
+}
+
+function marcarPonto(typeOfPlayer){
+    if (typeOfPlayer == 'player'){
+        localStorage.setItem('lastPoint', 'player');
+        audioPoint.play();
+        dataMatch[3] = Number(dataMatch[3]) + 1;
+        localStorage.setItem('currentMatch', dataMatch);
+    
+        if ((dataMatch[3] >= dataMatch[1] && dataMatch[3] - 1 != dataMatch[4] && dataMatch[4] - 1 != dataMatch[3] && dataMatch[3] != dataMatch[4]) || (dataMatch[4] >= dataMatch[1] && dataMatch[4] - 1 != dataMatch[3] && dataMatch[3] - 1 != dataMatch[4] && dataMatch[3] != dataMatch[4])) {
+            dataMatch[2] = 'win';
+    
+            if (matches) {
+                matches = matches.split('.');
+    
+                    matches[matches.length] = dataMatch;
+                    matches = matches.join('.');    
+    
+            } else {
+                matches = dataMatch;
+            }
+    
+            localStorage.setItem('matches', matches);
+            localStorage.setItem('statusMatch', 'win');
+            localStorage.removeItem('lastPoint');
+            localStorage.removeItem('currentMatch');
+    
+            window.location.replace('finished.html');
+        }
+    
+        if (!flipedPlayer) {
+            pointsPlayer.style.transform = 'rotate3d(10, 1, 0, 180deg)';
+            setTimeout(() => {
+                pointsPlayerNumber.textContent = dataMatch[3];
+                pointsPlayerNumber.style.transform = 'rotateY(180deg)';
+                pointsPlayerNumber.style.transform = 'rotateX(180deg)';
+            }, 300)
+        } else {
+            pointsPlayer.style.transform = 'rotate3d(5, 1, 0, 360deg)';
+            setTimeout(() => {
+                pointsPlayerNumber.textContent = dataMatch[3];
+                pointsPlayerNumber.style.transform = 'rotateX(0deg)';
+            }, 300)
+        }
+    
+        flipedPlayer = !flipedPlayer;
+    } else {
+        localStorage.setItem('lastPoint', 'opponent');
+
+        audioPoint.play();
+        dataMatch[4] = Number(dataMatch[4]) + 1;
+        localStorage.setItem('currentMatch', dataMatch);
+    
+        if ((dataMatch[3] >= dataMatch[1] && dataMatch[3] - 1 != dataMatch[4] && dataMatch[4] - 1 != dataMatch[3] && dataMatch[3] != dataMatch[4]) || (dataMatch[4] >= dataMatch[1] && dataMatch[4] - 1 != dataMatch[3] && dataMatch[3] - 1 != dataMatch[4] && dataMatch[3] != dataMatch[4])) {
+            dataMatch[2] = 'lose';
+    
+            if (matches) {
+                matches = matches.split('.');
+    
+    
+                    matches[matches.length] = dataMatch;
+                    matches = matches.join('.');    
+    
+    
+            } else {
+                matches = dataMatch;
+            }
+    
+            localStorage.setItem('matches', matches);
+            localStorage.setItem('statusMatch', 'lose');
+            localStorage.removeItem('currentMatch');
+            localStorage.removeItem('lastPoint');
+    
+            window.location.replace('finished.html')
+        }
+    
+        if (!flipedOpponent) {
+            pointsOpponent.style.transform = 'rotate3d(10, 1, 0, 180deg)';
+            setTimeout(() => {
+                pointsOpponentNumber.textContent = dataMatch[4];
+                pointsOpponentNumber.style.transform = 'rotateY(180deg)';
+                pointsOpponentNumber.style.transform = 'rotateX(180deg)';
+            }, 300)
+        } else {
+            pointsOpponent.style.transform = 'rotate3d(5, 1, 0, 360deg)';
+            setTimeout(() => {
+                pointsOpponentNumber.textContent = dataMatch[4];
+                pointsOpponentNumber.style.transform = 'rotateX(0deg)';
+            }, 300)
+        }
+    
         flipedOpponent = !flipedOpponent;
     }
+    
 }
 
 function init() {
@@ -101,18 +207,36 @@ function init() {
             .join('');
 
         if (e.results[e.resultIndex].isFinal) { // Verifica se o resultado é final
-            if((transcript.includes('voltar ponto') || transcript.includes('voltar.'))){
+            if((transcript.includes('voltar'))){
                 voltarPonto();
                 textoFala = '';
             }
+            if((transcript.includes('cancelar'))){
+                cancelarPartida();
+                textoFala = '';
+            }
+            if((transcript.includes('ponto ' + username)|| transcript.includes(username + ' ponto') || transcript.includes('.' + username) || transcript.includes(username + '.'))){
+                marcarPonto('player');
+                textoFala = '';
+            }
+            if(transcript.includes('ponto ' + dataMatch[0])|| transcript.includes(dataMatch[0] +' ponto') || transcript.includes('.' + dataMatch[0]) || transcript.includes(dataMatch[0] +'.')){
+                marcarPonto('opponent');
+                textoFala = '';
+            }
+
 
             textoFala += transcript + ', ';
         }
     });
+    
 
     speech.addEventListener('end', init); // Reinicia o reconhecimento quando ele termina
     speech.start();
 }
+
+setInterval(() => {
+    console.log(textoFala);    
+}, 3000);
 
 init();
 
@@ -127,95 +251,9 @@ btnCancel.addEventListener('click', function () {
 btnVoltar.addEventListener('click', voltarPonto)
 
 btnMarkPointPlayer.addEventListener('click', function () {
-    localStorage.setItem('lastPoint', 'player');
-    audioPoint.play();
-    dataMatch[3] = Number(dataMatch[3]) + 1;
-    localStorage.setItem('currentMatch', dataMatch);
-
-    if ((dataMatch[3] >= dataMatch[1] && dataMatch[3] - 1 != dataMatch[4] && dataMatch[4] - 1 != dataMatch[3] && dataMatch[3] != dataMatch[4]) || (dataMatch[4] >= dataMatch[1] && dataMatch[4] - 1 != dataMatch[3] && dataMatch[3] - 1 != dataMatch[4] && dataMatch[3] != dataMatch[4])) {
-        dataMatch[2] = 'win';
-
-        if (matches) {
-            matches = matches.split('.');
-
-                matches[matches.length] = dataMatch;
-                matches = matches.join('.');    
-
-        } else {
-            matches = dataMatch;
-        }
-
-        localStorage.setItem('matches', matches);
-        localStorage.setItem('statusMatch', 'win');
-        localStorage.removeItem('lastPoint');
-        localStorage.removeItem('currentMatch');
-
-        window.location.replace('finished.html');
-    }
-
-    if (!flipedPlayer) {
-        pointsPlayer.style.transform = 'rotate3d(10, 1, 0, 180deg)';
-        setTimeout(() => {
-            pointsPlayerNumber.textContent = dataMatch[3];
-            pointsPlayerNumber.style.transform = 'rotateY(180deg)';
-            pointsPlayerNumber.style.transform = 'rotateX(180deg)';
-        }, 300)
-    } else {
-        pointsPlayer.style.transform = 'rotate3d(5, 1, 0, 360deg)';
-        setTimeout(() => {
-            pointsPlayerNumber.textContent = dataMatch[3];
-            pointsPlayerNumber.style.transform = 'rotateX(0deg)';
-        }, 300)
-    }
-
-    flipedPlayer = !flipedPlayer;
-
+    marcarPonto('player');
 })
 
 btnMarkPointOpponent.addEventListener('click', function () {
-    localStorage.setItem('lastPoint', 'opponent');
-
-    audioPoint.play();
-    dataMatch[4] = Number(dataMatch[4]) + 1;
-    localStorage.setItem('currentMatch', dataMatch);
-
-    if ((dataMatch[3] >= dataMatch[1] && dataMatch[3] - 1 != dataMatch[4] && dataMatch[4] - 1 != dataMatch[3] && dataMatch[3] != dataMatch[4]) || (dataMatch[4] >= dataMatch[1] && dataMatch[4] - 1 != dataMatch[3] && dataMatch[3] - 1 != dataMatch[4] && dataMatch[3] != dataMatch[4])) {
-        dataMatch[2] = 'lose';
-
-        if (matches) {
-            matches = matches.split('.');
-
-
-                matches[matches.length] = dataMatch;
-                matches = matches.join('.');    
-
-
-        } else {
-            matches = dataMatch;
-        }
-
-        localStorage.setItem('matches', matches);
-        localStorage.setItem('statusMatch', 'lose');
-        localStorage.removeItem('currentMatch');
-        localStorage.removeItem('lastPoint');
-
-        window.location.replace('finished.html')
-    }
-
-    if (!flipedOpponent) {
-        pointsOpponent.style.transform = 'rotate3d(10, 1, 0, 180deg)';
-        setTimeout(() => {
-            pointsOpponentNumber.textContent = dataMatch[4];
-            pointsOpponentNumber.style.transform = 'rotateY(180deg)';
-            pointsOpponentNumber.style.transform = 'rotateX(180deg)';
-        }, 300)
-    } else {
-        pointsOpponent.style.transform = 'rotate3d(5, 1, 0, 360deg)';
-        setTimeout(() => {
-            pointsOpponentNumber.textContent = dataMatch[4];
-            pointsOpponentNumber.style.transform = 'rotateX(0deg)';
-        }, 300)
-    }
-
-    flipedOpponent = !flipedOpponent;
+    marcarPonto('opponent');
 })
